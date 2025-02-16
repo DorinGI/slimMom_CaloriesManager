@@ -1,0 +1,56 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: 2px solid #ddd;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logoText {
+  font-size: 22px;
+  font-weight: bold;
+  color: #212121;
+}
+.logoTextOrange {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fc842d;
+}
+
+.verticalLine {
+  stroke-width: 2px;
+  stroke: #e0e0e0;
+  border-left: 2px solid #e0e0e0;
+  height: 30px;
+  margin: 0px 20px 0px 20px;
+}
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.navLink {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9b9faa;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #0056b3;
+}

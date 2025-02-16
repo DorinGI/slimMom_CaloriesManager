@@ -1,0 +1,72 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+}
+
+input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 240px;
+}
+
+.underline {
+  border-bottom: 1px solid #e0e0e0;
+  width: 240px;
+  margin-top: 5px;
+}
+
+.bloodTypeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  font-size: 14px;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 50px;
+  margin-top: 5px;
+}
+.radioGroup label {
+  flex-direction: row;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 0px;
+}
+
+.submitButton {
+  border-radius: 30px;
+  padding: 13px 49px;
+  width: 210px;
+  height: 43px;
+  box-shadow: 0 4px 10px 0 rgba(252, 132, 45, 0.5);
+  background: #fc842d;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submitButton:hover {
+  background: #e76a1d;
+}

@@ -1,13 +1,13 @@
-import express from 'express';
-import {
-  getDailyIntake,
-  getPrivateDailyIntake,
-} from '../controllers/logController.js';
-import authMiddleware from '../middleware/authMiddleware.js';
+// import express from 'express';
+// import {
+//   getDailyIntake,
+//   getPrivateDailyIntake,
+// } from '../controllers/logController.js';
+// import authMiddleware from '../middleware/authMiddleware.js';
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get('/daily-intake', getDailyIntake);
-router.get('/private-daily-intake', authMiddleware, getPrivateDailyIntake);
+// router.get('/daily-intake', getDailyIntake);
+// router.get('/private-daily-intake', authMiddleware, getPrivateDailyIntake);
 
-export default router;
+// export default router;
