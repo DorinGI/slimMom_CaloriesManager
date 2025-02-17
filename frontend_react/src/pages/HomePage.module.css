@@ -1,0 +1,10 @@
+.homeContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.description {
+  font-size: 18px;
+  margin-bottom: 20px;
+}

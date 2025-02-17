@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DiaryDateCalendar from '../components/Diary/DiaryDateCalendar';
-import DiaryAddProductForm from '../components/Diary/DiaryAddProductForm';
-import DiaryProductsList from '../components/Diary/DiaryProductsList';
+import DiaryDateCalendar from '../components/DiaryDateCalendar/DiaryDateCalendar';
+import DiaryAddProductForm from '../components/DiaryAddProductForm/DiaryAddProductForm';
+import DiaryProductsList from '../components/DiaryProductsList/DiaryProductsList';
 import RightSideBar from '../components/RightSideBar/RightSideBar';
 import styles from './DiaryPage.module.css';
 

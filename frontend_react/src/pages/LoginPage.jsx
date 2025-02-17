@@ -13,7 +13,7 @@ const LoginPage = () => {
   const handleLogin = async userData => {
     const result = await dispatch(loginUser(userData));
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/home');
+      navigate('/diary');
     }
   };
 
