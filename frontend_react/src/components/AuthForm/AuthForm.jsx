@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styles from './AuthForm.module.css';
 
-const AuthForm = ({ onSubmit, buttonText }) => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+const AuthForm = ({ onSubmit, buttonText, showNameField }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,6 +19,18 @@ const AuthForm = ({ onSubmit, buttonText }) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      {showNameField && (
+        <label>
+          Nume:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required={showNameField}
+          />
+        </label>
+      )}
       <label>
         Email:
         <input

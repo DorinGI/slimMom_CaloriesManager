@@ -24,11 +24,11 @@ const RightSideBar = ({ selectedDate }) => {
       </p>
 
       <h3>Restricted Foods</h3>
-      <ul>
-        {restrictedProducts.slice(0, 5).map((item, index) => (
+      {/* <ul>
+        {restrictedProducts.map((item, index) => (
           <li key={index}>{item.title}</li>
         ))}
-      </ul>
+      </ul> */}
     </aside>
   );
 };

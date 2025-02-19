@@ -1,14 +1,19 @@
 import express from 'express';
 import {
   getAllProducts,
+  getSearchedProducts,
   getRestrictedProducts,
   addProductToDailyLog,
   removeProductFromDailyLog,
   getDailyLog,
 } from '../controllers/productController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
+import Product from '../models/Product.js';
 
 const router = express.Router();
+
+// Search products by title
+router.get('/products/search', getSearchedProducts);
 
 // ✅ Obține toate produsele
 router.get('/products', getAllProducts);
@@ -17,12 +22,12 @@ router.get('/products', getAllProducts);
 router.post('/daily-intake', getRestrictedProducts);
 
 // ✅ Adaugă un produs în jurnal (autentificare necesară)
-router.post('/daily-log', authMiddleware, addProductToDailyLog);
+router.post('/dailylog', authMiddleware, addProductToDailyLog);
 
 // ✅ Șterge un produs din jurnal (autentificare necesară)
-router.delete('/daily-log/:id', authMiddleware, removeProductFromDailyLog);
+router.delete('/dailylog', authMiddleware, removeProductFromDailyLog);
 
 // ✅ Obține jurnalul zilnic (autentificare necesară)
-router.get('/daily-log/:date', authMiddleware, getDailyLog);
+router.get('/dailylog/:date', authMiddleware, getDailyLog);
 
 export default router;

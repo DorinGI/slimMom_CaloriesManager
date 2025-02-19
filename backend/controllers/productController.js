@@ -14,6 +14,26 @@ export const getAllProducts = async (req, res) => {
 };
 
 /**
+ * ✅ Obține toate produsele cautate din baza de date
+ */
+export const getSearchedProducts = async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) {
+      return res.status(400).json({ message: 'Search query is required' });
+    }
+
+    const products = await Product.find({
+      title: { $regex: query, $options: 'i' }, // Case-insensitive search
+    }).limit(10);
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+/**
  * ✅ Obține lista de produse nerecomandate pentru o anumită grupă de sânge
  */
 export const getRestrictedProducts = async (req, res) => {
@@ -52,7 +72,7 @@ export const getRestrictedProducts = async (req, res) => {
  * ✅ Adaugă un produs în jurnalul zilnic
  */
 export const addProductToDailyLog = async (req, res) => {
-  const { date, product, calories } = req.body;
+  const { date, product, calories, gram, name } = req.body;
   const userId = req.user.userId;
 
   try {
@@ -62,7 +82,7 @@ export const addProductToDailyLog = async (req, res) => {
       log = new DailyLog({ user: userId, date, products: [] });
     }
 
-    log.products.push({ name: product, calories });
+    log.products.push({ name: product, calories, gram, name });
     await log.save();
 
     res.status(201).json({ msg: 'Produs adăugat în jurnal' });
@@ -75,21 +95,21 @@ export const addProductToDailyLog = async (req, res) => {
  * ✅ Șterge un produs din jurnalul zilnic
  */
 export const removeProductFromDailyLog = async (req, res) => {
-  const { id } = req.params;
-  const userId = req.user.userId;
+  const { userId, date, productId } = req.body; // 👈 Primim userId, date și productId
 
   try {
-    const log = await DailyLog.findOne({ user: userId, date: req.body.date });
+    let log = await DailyLog.findOne({ user: userId, date });
 
     if (!log) {
       return res.status(404).json({ msg: 'Jurnalul zilnic nu a fost găsit' });
     }
 
+    // ✅ Eliminăm doar produsul specific
     log.products = log.products.filter(
-      product => product._id.toString() !== id
+      product => product._id.toString() !== productId
     );
-    await log.save();
 
+    await log.save();
     res.status(200).json({ msg: 'Produs șters din jurnal' });
   } catch (error) {
     res.status(500).json({ msg: 'Eroare server', error });
@@ -100,18 +120,18 @@ export const removeProductFromDailyLog = async (req, res) => {
  * ✅ Obține jurnalul zilnic al utilizatorului
  */
 export const getDailyLog = async (req, res) => {
-  const { date } = req.params;
-  const userId = req.user.userId;
-
   try {
+    const userId = req.user.userId;
+    const { date } = req.params;
+
     const log = await DailyLog.findOne({ user: userId, date });
 
     if (!log) {
-      return res.status(404).json({ msg: 'Jurnalul zilnic nu a fost găsit' });
+      return res.json({ products: [] });
     }
 
-    res.json(log);
+    res.json(log.products);
   } catch (error) {
-    res.status(500).json({ msg: 'Eroare server', error });
+    res.status(500).json({ message: 'Server error' });
   }
 };

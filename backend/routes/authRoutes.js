@@ -11,10 +11,11 @@ const router = express.Router();
 // Get the current user's data
 router.get('/me', authMiddleware, async (req, res) => {
   try {
-    if (!req.user) {
+    const user = req.user;
+    if (!user) {
       return res.status(401).json({ message: 'User not found' });
     }
-    res.json(req.user);
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

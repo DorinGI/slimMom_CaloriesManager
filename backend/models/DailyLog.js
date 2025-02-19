@@ -7,6 +7,7 @@ const DailyLogSchema = new mongoose.Schema({
     {
       name: { type: String, required: true },
       calories: { type: Number, required: true },
+      gram: { type: Number, required: true },
     },
   ],
 });

@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Get token from localStorage (if exists)
-const token = localStorage.getItem('token');
-
 // Axios instance with Authorization header
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/auth',
@@ -26,10 +23,11 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await api.post('/login', userData);
-      const { token, user } = response.data;
+      const { token, user, userId } = response.data;
 
       // Save token to localStorage
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
       return { user, token };
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -58,6 +56,7 @@ export const fetchUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get('/me');
+      console.log(response.data);
       return response.data;
     } catch (error) {
       localStorage.removeItem('token');

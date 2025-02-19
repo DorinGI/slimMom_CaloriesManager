@@ -1,30 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProductToDiary } from '../../redux/diarySlice';
 import styles from './DiaryAddProductForm.module.css';
+import axios from 'axios';
 
 const DiaryAddProductForm = ({ selectedDate }) => {
   const dispatch = useDispatch();
-  const [product, setProduct] = useState('');
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [weight, setWeight] = useState('');
 
-  const handleSubmit = e => {
+  // Fetch product suggestions
+  useEffect(() => {
+    if (query.length > 0) {
+      axios
+        .get(`http://localhost:5000/api/products/search?q=${query}`)
+        .then(res => setSuggestions(res.data))
+        .catch(err => console.error(err));
+    } else {
+      setSuggestions([]);
+    }
+  }, [query]);
+
+  const handleSelectProduct = product => {
+    setSelectedProduct(product);
+    setQuery(product.title);
+    setSuggestions([]);
+  };
+
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!product || !weight) {
-      alert('Please enter a product name and weight.');
+    if (!selectedProduct || !weight) {
+      alert('Please select a product and enter a weight.');
       return;
     }
 
+    const calories = (selectedProduct.calories * weight) / 100; // Calculate calories
+
     const newProduct = {
       date: selectedDate.toISOString().split('T')[0], // Format YYYY-MM-DD
-      product,
-      weight: Number(weight),
+      gram: Number(weight),
+      productId: selectedProduct._id || '',
+      name: selectedProduct.title,
+      calories,
     };
+
+    await axios.post('http://localhost:5000/api/dailylog', newProduct, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
 
     dispatch(addProductToDiary(newProduct));
 
-    setProduct('');
+    setQuery('');
+    setSelectedProduct(null);
     setWeight('');
   };
 
@@ -32,14 +62,25 @@ const DiaryAddProductForm = ({ selectedDate }) => {
     <form onSubmit={handleSubmit} className={styles.form}>
       <h3>Add Product</h3>
 
-      {/* Product Name Input */}
+      {/* Product Search Input */}
       <input
         type="text"
-        placeholder="Enter food name..."
-        value={product}
-        onChange={e => setProduct(e.target.value)}
+        placeholder="Search food..."
+        value={query}
+        onChange={e => setQuery(e.target.value)}
         className={styles.input}
       />
+
+      {/* Suggestions Dropdown */}
+      {suggestions.length > 0 && (
+        <ul className={styles.suggestions}>
+          {suggestions.map(product => (
+            <li key={product._id} onClick={() => handleSelectProduct(product)}>
+              {product.title}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* Weight Input */}
       <input

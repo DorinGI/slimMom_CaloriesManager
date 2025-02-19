@@ -10,15 +10,15 @@ const UserInfo = () => {
   if (!user) {
     return null;
   }
-
+  // console.log(user);
   const handleLogout = () => {
     dispatch(logout());
   };
 
   return (
     <div className={styles.userInfo}>
-      <p>Bun venit, {user.name || 'Utilizator'}!</p>
-      <button onClick={handleLogout}>Deconectare</button>
+      <p>{user.name || 'Utilizator'}</p>
+      <button onClick={handleLogout}>Exit</button>
     </div>
   );
 };

@@ -21,7 +21,11 @@ const LoginPage = () => {
     <div className={styles.loginContainer}>
       <h1>Autentificare</h1>
       {error && <p className={styles.error}>{error.message}</p>}
-      <AuthForm onSubmit={handleLogin} buttonText="Login" />
+      <AuthForm
+        onSubmit={handleLogin}
+        buttonText="Login"
+        showNameField={false}
+      />
       {loading && <p>Se încarcă...</p>}
       <p>
         Nu ai cont? <a href="/register">Înregistrează-te</a>

@@ -1,33 +1,79 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { removeProductFromDiary } from '../../redux/diarySlice';
+import axios from 'axios';
 import styles from './DiaryProductsList.module.css';
 
 const DiaryProductsList = ({ selectedDate }) => {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.diary.products);
+  const [products, setProducts] = useState([]);
 
-  // Filter products for the selected date
-  const filteredProducts = products.filter(
-    product => product.date === selectedDate.toISOString().split('T')[0]
-  );
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const dateString = selectedDate.toISOString().split('T')[0];
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/dailylog/${dateString}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
+
+        console.log('API Response:', res.data); // ✅ Debugging
+
+        if (Array.isArray(res.data)) {
+          setProducts(res.data); // ✅ Setăm direct lista de produse
+        } else {
+          setProducts([]); // Dacă nu este un array, resetăm lista
+        }
+      } catch (error) {
+        console.error('Error fetching daily log:', error);
+        setProducts([]);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedDate]);
+
+  const handleRemoveProduct = async productId => {
+    const userId = localStorage.getItem('userId'); // 👈 Ia userId din localStorage
+    const date = selectedDate.toISOString().split('T')[0]; // 👈 Formatăm data
+
+    try {
+      await axios.delete('http://localhost:5000/api/dailylog', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        data: { userId, date, productId }, // 👈 Trimitem datele în body
+      });
+
+      // ✅ Update state pentru a elimina produsul din UI
+      setProducts(prevProducts =>
+        prevProducts.filter(product => product._id !== productId)
+      );
+
+      dispatch(removeProductFromDiary(productId));
+    } catch (error) {
+      console.error('Error removing product:', error);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <h3>Food List for {selectedDate.toDateString()}</h3>
 
-      {filteredProducts.length === 0 ? (
+      {products.length === 0 ? (
         <p className={styles.noProducts}>No products added yet.</p>
       ) : (
         <ul className={styles.list}>
-          {filteredProducts.map((item, index) => (
+          {products.map((item, index) => (
             <li key={index} className={styles.listItem}>
               <span>
-                {item.product} - {item.weight}g
+                {item.name} - {item.calories} kcal
               </span>
               <button
                 className={styles.deleteButton}
-                onClick={() => dispatch(removeProductFromDiary(item))}
+                onClick={() => handleRemoveProduct(item._id)}
               >
                 X
               </button>

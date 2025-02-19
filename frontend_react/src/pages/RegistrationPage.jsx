@@ -21,7 +21,11 @@ const RegisterPage = () => {
     <div className={styles.registerContainer}>
       <h1>Înregistrare</h1>
       {error && <p className={styles.error}>{error.message}</p>}
-      <AuthForm onSubmit={handleRegister} buttonText="Înregistrează-te" />
+      <AuthForm
+        onSubmit={handleRegister}
+        buttonText="Înregistrează-te"
+        showNameField={true}
+      />
       {loading && <p>Se încarcă...</p>}
       <p>
         Ai deja cont? <a href="/login">Autentifică-te</a>
