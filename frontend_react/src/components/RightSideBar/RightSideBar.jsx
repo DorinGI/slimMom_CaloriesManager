@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './RightSideBar.module.css';
 
-const RightSideBar = ({ selectedDate }) => {
+const RightSideBar = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const { kcal, consumed, left, restrictedProducts } = useSelector(
     state => state.dailyLog
   );
-
+  const validRestrictedProducts = Array.isArray(restrictedProducts)
+    ? restrictedProducts
+    : [];
+  const filteredProducts = validRestrictedProducts.filter(item =>
+    item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <aside className={styles.sidebar}>
       <h3>Calorie Summary</h3>
@@ -23,12 +30,25 @@ const RightSideBar = ({ selectedDate }) => {
         <strong>% of Normal:</strong> {Math.round((consumed / kcal) * 100)}%
       </p>
 
-      <h3>Restricted Foods</h3>
-      {/* <ul>
-        {restrictedProducts.map((item, index) => (
-          <li key={index}>{item.title}</li>
-        ))}
-      </ul> */}
+      <h3>Food not recomanded</h3>
+      <input
+        type="text"
+        placeholder="Search a product ..."
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+      <ul className={styles.restrictedList}>
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((item, index) => (
+            <li key={index}>
+              <strong>{item}</strong>
+            </li>
+          ))
+        ) : (
+          <li className={styles.noResults}>No products found</li>
+        )}
+      </ul>
     </aside>
   );
 };

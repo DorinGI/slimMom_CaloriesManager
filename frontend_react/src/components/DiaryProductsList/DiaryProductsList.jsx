@@ -4,7 +4,7 @@ import { removeProductFromDiary } from '../../redux/diarySlice';
 import axios from 'axios';
 import styles from './DiaryProductsList.module.css';
 
-const DiaryProductsList = ({ selectedDate }) => {
+const DiaryProductsList = ({ selectedDate, onRefresh }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
@@ -21,7 +21,7 @@ const DiaryProductsList = ({ selectedDate }) => {
           }
         );
 
-        console.log('API Response:', res.data); // ✅ Debugging
+        // console.log('API Response:', res.data); // ✅ Debugging
 
         if (Array.isArray(res.data)) {
           setProducts(res.data); // ✅ Setăm direct lista de produse
@@ -35,7 +35,7 @@ const DiaryProductsList = ({ selectedDate }) => {
     };
 
     fetchProducts();
-  }, [selectedDate]);
+  }, [selectedDate, onRefresh]);
 
   const handleRemoveProduct = async productId => {
     const userId = localStorage.getItem('userId'); // 👈 Ia userId din localStorage
@@ -53,6 +53,7 @@ const DiaryProductsList = ({ selectedDate }) => {
       );
 
       dispatch(removeProductFromDiary(productId));
+      onRefresh();
     } catch (error) {
       console.error('Error removing product:', error);
     }

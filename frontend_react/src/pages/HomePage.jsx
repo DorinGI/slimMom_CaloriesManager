@@ -11,6 +11,7 @@ const Home = () => {
   const { kcal, restrictedProducts, loading, error } = useSelector(
     state => state.dailyLog
   );
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleFormSubmit = userData => {

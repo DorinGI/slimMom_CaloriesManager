@@ -4,7 +4,7 @@ import { addProductToDiary } from '../../redux/diarySlice';
 import styles from './DiaryAddProductForm.module.css';
 import axios from 'axios';
 
-const DiaryAddProductForm = ({ selectedDate }) => {
+const DiaryAddProductForm = ({ selectedDate, onRefresh }) => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -52,6 +52,7 @@ const DiaryAddProductForm = ({ selectedDate }) => {
     });
 
     dispatch(addProductToDiary(newProduct));
+    onRefresh();
 
     setQuery('');
     setSelectedProduct(null);

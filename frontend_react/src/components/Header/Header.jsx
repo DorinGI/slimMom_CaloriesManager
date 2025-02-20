@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import UserInfo from '../UserInfo/UserInfo';
+
 import logo from '../../../images/logo_svg.svg';
 import styles from './Header.module.css';
 

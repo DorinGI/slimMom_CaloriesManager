@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchDailyIntake } from '../../redux/dailyLogSlice';
 import styles from './DailyCaloriesForm.module.css';
 
-const DailyCaloriesForm = () => {
-  const dispatch = useDispatch();
+const DailyCaloriesForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     height: '',
     desiredWeight: '',
@@ -17,13 +14,12 @@ const DailyCaloriesForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFormSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(fetchDailyIntake(formData));
+    onSubmit(formData);
   };
-
   return (
-    <form className={styles.form} onSubmit={handleFormSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.inputRow}>
         <label>
           Height
