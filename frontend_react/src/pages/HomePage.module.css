@@ -1,10 +1,76 @@
 .homeContainer {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  /* position: relative; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow: hidden;
+  text-align: left;
+  padding-left: 10%;
+}
+/* .modal {
+  z-index: 6 !important;
+} */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 400px;
 }
 
 .description {
   font-size: 18px;
   margin-bottom: 20px;
+}
+
+.graphics {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.svgShape {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 603px;
+  height: 816px;
+  z-index: 1;
+}
+
+.banana {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 773px;
+  height: 552px;
+  background-size: cover;
+  z-index: 2;
+}
+
+.strawberry {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  width: 286px;
+  height: 279px;
+
+  /* transform: rotate(-180deg); */
+  z-index: 3;
+}
+
+.leaf {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 746px;
+  height: 846px;
+  background-size: cover;
+  z-index: 5;
 }
