@@ -61,8 +61,6 @@ const DiaryProductsList = ({ selectedDate, onRefresh }) => {
 
   return (
     <div className={styles.container}>
-      <h3>Food List for {selectedDate.toDateString()}</h3>
-
       {products.length === 0 ? (
         <p className={styles.noProducts}>No products added yet.</p>
       ) : (
@@ -70,7 +68,9 @@ const DiaryProductsList = ({ selectedDate, onRefresh }) => {
           {products.map((item, index) => (
             <li key={index} className={styles.listItem}>
               <span>
-                {item.name} - {item.calories} kcal
+                <span className={styles.name}>{item.name}</span>
+                <span className={styles.weight}>{item.gram} g</span>
+                <span className={styles.calories}>{item.calories} kcal</span>
               </span>
               <button
                 className={styles.deleteButton}

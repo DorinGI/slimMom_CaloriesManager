@@ -41,11 +41,11 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await api.post('/register', userData);
-      return response.data;
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      return user;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || 'Registration failed'
-      );
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -82,6 +82,18 @@ const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(registerUser.pending, state => {
+        state.loading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.token = localStorage.getItem('token');
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(loginUser.pending, state => {
         state.isLoading = true;
       })

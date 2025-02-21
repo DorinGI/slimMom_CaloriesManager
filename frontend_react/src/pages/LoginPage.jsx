@@ -19,16 +19,16 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <h1>Autentificare</h1>
+      <h1>Login</h1>
       {error && <p className={styles.error}>{error.message}</p>}
       <AuthForm
         onSubmit={handleLogin}
         buttonText="Login"
         showNameField={false}
       />
-      {loading && <p>Se încarcă...</p>}
+      {loading && <p>Loading...</p>}
       <p>
-        Nu ai cont? <a href="/register">Înregistrează-te</a>
+        You don't have an Account? <a href="/register">Register</a>
       </p>
     </div>
   );

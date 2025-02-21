@@ -8,8 +8,10 @@
 }
 
 .selectedDate {
-  font-size: 18px;
-  font-weight: bold;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 34px;
+  color: #212121;
 }
 
 .calendarButton {

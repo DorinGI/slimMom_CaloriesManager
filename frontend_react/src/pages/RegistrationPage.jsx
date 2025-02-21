@@ -13,22 +13,22 @@ const RegisterPage = () => {
   const handleRegister = async userData => {
     const result = await dispatch(registerUser(userData));
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/home');
+      navigate('/diary');
     }
   };
 
   return (
     <div className={styles.registerContainer}>
-      <h1>Înregistrare</h1>
+      <h1>Register</h1>
       {error && <p className={styles.error}>{error.message}</p>}
       <AuthForm
         onSubmit={handleRegister}
-        buttonText="Înregistrează-te"
+        buttonText="Register"
         showNameField={true}
       />
-      {loading && <p>Se încarcă...</p>}
+      {loading && <p>Loading...</p>}
       <p>
-        Ai deja cont? <a href="/login">Autentifică-te</a>
+        You already have an Account? <a href="/login">Login</a>
       </p>
     </div>
   );

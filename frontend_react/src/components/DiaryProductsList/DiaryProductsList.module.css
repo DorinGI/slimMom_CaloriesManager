@@ -1,26 +1,59 @@
 .container {
   margin-top: 20px;
+  width: 100%;
 }
 
 .list {
   list-style: none;
   padding: 0;
+  width: 100%;
 }
 
 .listItem {
+  font-family: var(--font-family);
   display: flex;
   justify-content: space-between;
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 5px 0;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.listItem span {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+}
+
+.listItem span .name {
+  flex: 3;
+  text-align: left;
+}
+
+.listItem span .weight {
+  flex: 1;
+  text-align: center;
+}
+
+.listItem span .calories {
+  flex: 1;
+  text-align: right;
 }
 
 .deleteButton {
-  background-color: #ff3b3b;
-  color: white;
   border: none;
-  padding: 5px 10px;
+  background: none;
+  color: #9b9faa;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 3px;
+  padding: 5px;
+  margin-left: 15px;
+  transition: color 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+  color: #ff3b3b;
 }

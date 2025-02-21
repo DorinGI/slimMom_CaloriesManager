@@ -61,19 +61,33 @@ const DiaryAddProductForm = ({ selectedDate, onRefresh }) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <h3>Add Product</h3>
+      <div className={styles.formInputs}>
+        <div className={styles.FoodName}>
+          <input
+            type="text"
+            placeholder="Search food..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className={styles.inputFoodName}
+          />
+          <div className={styles.underline}></div>
+        </div>
 
-      {/* Product Search Input */}
-      <input
-        type="text"
-        placeholder="Search food..."
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-        className={styles.input}
-      />
+        <div className={styles.input}>
+          <input
+            type="number"
+            placeholder="Weight (grams)"
+            value={weight}
+            onChange={e => setWeight(e.target.value)}
+          />
+          <div className={styles.underline}></div>
+        </div>
 
-      {/* Suggestions Dropdown */}
-      {suggestions.length > 0 && (
+        <button type="submit" className={styles.addButton}>
+          +
+        </button>
+      </div>
+      {suggestions.length > 1 && (
         <ul className={styles.suggestions}>
           {suggestions.map(product => (
             <li key={product._id} onClick={() => handleSelectProduct(product)}>
@@ -82,20 +96,6 @@ const DiaryAddProductForm = ({ selectedDate, onRefresh }) => {
           ))}
         </ul>
       )}
-
-      {/* Weight Input */}
-      <input
-        type="number"
-        placeholder="Weight (grams)"
-        value={weight}
-        onChange={e => setWeight(e.target.value)}
-        className={styles.input}
-      />
-
-      {/* Submit Button */}
-      <button type="submit" className={styles.addButton}>
-        Add
-      </button>
     </form>
   );
 };

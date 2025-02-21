@@ -16,7 +16,7 @@ const RightSideBar = () => {
   );
   return (
     <aside className={styles.sidebar}>
-      <h3>Calorie Summary</h3>
+      <h3>Calories Summary </h3>
       <p>
         <strong>Left:</strong> {left} kcal
       </p>
@@ -33,7 +33,7 @@ const RightSideBar = () => {
       <h3>Food not recomanded</h3>
       <input
         type="text"
-        placeholder="Search a product ..."
+        placeholder="Search food ..."
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
         className={styles.searchInput}

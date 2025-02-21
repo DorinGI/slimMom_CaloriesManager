@@ -20,17 +20,21 @@ const AuthForm = ({ onSubmit, buttonText, showNameField }) => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       {showNameField && (
-        <label>
-          Nume:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required={showNameField}
-          />
-        </label>
+        <>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required={showNameField}
+            />
+          </label>
+          <div className={styles.underline}></div>
+        </>
       )}
+
       <label>
         Email:
         <input
@@ -41,8 +45,9 @@ const AuthForm = ({ onSubmit, buttonText, showNameField }) => {
           required
         />
       </label>
+      <div className={styles.underline}></div>
       <label>
-        Parola:
+        Password:
         <input
           type="password"
           name="password"
@@ -51,6 +56,7 @@ const AuthForm = ({ onSubmit, buttonText, showNameField }) => {
           required
         />
       </label>
+      <div className={styles.underline}></div>
       <button type="submit">{buttonText}</button>
     </form>
   );

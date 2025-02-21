@@ -18,6 +18,7 @@ label {
 }
 
 input {
+  font-family: var(--font-family);
   border: none;
   outline: none;
   font-size: 16px;
@@ -42,20 +43,30 @@ input {
   display: flex;
   gap: 50px;
   margin-top: 5px;
+  align-items: center;
 }
+
+.radioGroup input[type='radio'] {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
 .radioGroup label {
+  display: flex;
+  justify-content: center;
   flex-direction: row;
-  border: none;
-  outline: none;
+  align-items: flex-end;
   font-size: 16px;
-  padding: 5px;
-  width: 0px;
+  font-weight: normal;
+  cursor: pointer;
 }
 
 .submitButton {
   border-radius: 30px;
   padding: 13px 49px;
-  width: 210px;
+  width: 350px;
   height: 43px;
   box-shadow: 0 4px 10px 0 rgba(252, 132, 45, 0.5);
   background: #fc842d;

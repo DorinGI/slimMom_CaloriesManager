@@ -18,6 +18,7 @@ const UserInfo = () => {
   return (
     <div className={styles.userInfo}>
       <p>{user.name || 'Utilizator'}</p>
+      <span className={styles.verticalLine}></span>
       <button onClick={handleLogout}>Exit</button>
     </div>
   );
